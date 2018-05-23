@@ -34,7 +34,7 @@ class ManageCoursePage extends React.Component {
 
 const mapStateTorProps = state => ({
     course: state.course,
-    allAuthors: state.allAuthors
+    allAuthors: state.authors.map(author => ({value: author.id, text: `${author.firstName} ${author.lastName}`}))
 });
 
 const mapDispatchToProps = dispatch => ({});

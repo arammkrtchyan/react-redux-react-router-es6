@@ -1,7 +1,6 @@
 import {FETCH_AUTHOR_SUCCESS} from '../actions/actionTypes'
 
 const authors = (state = [], action) => {
-    debugger;
     switch (action.type) {
         case FETCH_AUTHOR_SUCCESS:
             return action.authors;

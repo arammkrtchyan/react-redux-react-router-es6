@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createCourse} from '../actions/course-actions'
 import PropTypes from 'prop-types';
 import CourseList from './CourseList';
+import {withRouter} from 'react-router';
 
 class CoursesPage extends React.Component {
 
@@ -10,10 +10,18 @@ class CoursesPage extends React.Component {
         courses: PropTypes.array.isRequired,
     };
 
+    handleAddCourseClick = () => {
+        this.props.history.push('/course');
+    };
+
     render() {
         return (
             <div>
                 <h1>Courses Page</h1>
+                <button type='submit' className="btn btn-primary" style={{marginBottom: '10px'}}
+                        onClick={this.handleAddCourseClick}>
+                    Add Course
+                </button>
                 <CourseList courses={this.props.courses}/>
             </div>
         );
@@ -24,11 +32,6 @@ const mapStateToProps = state => ({
     courses: state.courses
 });
 
-const mapDispatchToProps = dispatch => ({
-    onSaveActionClick: course => dispatch(createCourse(course))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CoursesPage);
+export default withRouter(connect(
+    mapStateToProps
+)(CoursesPage));

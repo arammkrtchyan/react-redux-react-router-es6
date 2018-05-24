@@ -51,7 +51,7 @@ const CourseListRow = (props) => {
                 <a href={watchHref} target="_blank">Watch</a>
             </td>
             <td>
-                <Link to={`courses/${id}`}>{title}</Link>
+                <Link to={`course/${id}`}>{title}</Link>
             </td>
             <td>{authorId}</td>
             <td>{category}</td>

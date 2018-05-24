@@ -7,7 +7,8 @@ const CourseForm = (props) => {
         errors,
         allAuthors,
         loading,
-        onSave
+        onSave,
+        onChange
     } = props;
 
     let handleFormSubmit = (event) => {
@@ -22,8 +23,7 @@ const CourseForm = (props) => {
                     value={course.title}
                     label="Title"
                     name="title"
-                    onChange={() => {
-                    }}
+                    onChange={onChange}
                     error={errors.title}
                 />
                 <SelectInput
@@ -32,24 +32,21 @@ const CourseForm = (props) => {
                     value={course.authorId}
                     defaultOption="Select Author"
                     options={allAuthors}
-                    onChange={() => {
-                    }}
+                    onChange={onChange}
                     error={errors.authorId}
                 />
                 <TextInput
                     value={course.category}
                     label="Category"
                     name="category"
-                    onChange={() => {
-                    }}
+                    onChange={onChange}
                     error={errors.category}
                 />
                 <TextInput
                     value={course.length}
                     label="Length"
                     name="length"
-                    onChange={() => {
-                    }}
+                    onChange={onChange}
                     error={errors.length}
                 />
                 <button
@@ -70,7 +67,8 @@ CourseForm.propTypes = {
     errors: PropTypes.object,
     allAuthors: PropTypes.array.isRequired,
     loading: PropTypes.bool,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 export default CourseForm;
@@ -93,7 +91,7 @@ const TextInput = (props) => {
             </label>
             <div className='field'>
                 <input type="text" value={value} name={name} className='form-control'
-                       placeholder={placeholder} onChange={event => onChange(event.target.value)}/>
+                       placeholder={placeholder} onChange={onChange}/>
                 {error && <div className='alert alert-danger'>{error}</div>}
             </div>
         </div>
@@ -127,7 +125,7 @@ const SelectInput = (props) => {
             <div className='field'>
                 <select
                     name={name}
-                    onChange={event => onChange(event.target.value)}
+                    onChange={onChange}
                     value={value}
                     className="form-control"
                 >

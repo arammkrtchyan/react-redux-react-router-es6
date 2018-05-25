@@ -1,7 +1,9 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
+import PropTypes from 'prop-types';
+import LoadSpinner from "./LoadSpinner";
 
-const Header = () => {
+const Header = (props) => {
     return (
         <nav>
             <NavLink exact to="/">Home</NavLink>
@@ -9,8 +11,13 @@ const Header = () => {
             <NavLink to="/courses">Courses</NavLink>
             {' | '}
             <NavLink to="/about">About</NavLink>
+            {props.loading && <LoadSpinner/>}
         </nav>
     );
+};
+
+Header.propTypes = {
+    loading: PropTypes.bool
 };
 
 export default Header;

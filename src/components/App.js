@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import Header from "./common/Header";
 import CoursesPage from "./course/CoursesPage";
 import ManageCoursePage from "./course/ManageCoursePage";
+import {connect} from 'react-redux';
 
 const history = createBrowserHistory();
 
@@ -16,7 +17,7 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div className="container-fluid" id="app">
-                    <Header/>
+                    <Header loading={this.props.loading}/>
                     <Main>
                         <Route exact path='/' component={HomePage}/>
                         <Route path='/about' component={AboutPage}/>
@@ -45,4 +46,10 @@ class Main extends Component {
 
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        loading: state.ajaxCallsInProgress > 0
+    };
+};
+
+export default connect(mapStateToProps)(App);

@@ -4,7 +4,7 @@ import {
     UPDATE_COURSE_SUCCESS
 } from './actionTypes';
 import coursesApi from '../api/mockCourseApi';
-import {beginAjaxCall} from "./ajaxStatusActions";
+import {ajaxCallError, beginAjaxCall} from "./ajaxStatusActions";
 
 export const loadCourses = () => {
     return dispatch => {
@@ -13,6 +13,7 @@ export const loadCourses = () => {
             .then(courses => {
                 dispatch({type: FETCH_COURSES_SUCCESS, courses})
             }).catch(error => {
+                dispatch(ajaxCallError());
                 throw(error)
             })
     }
@@ -40,6 +41,7 @@ export const saveCourse = (course) => {
                 return course.id != null ? dispatch(updateCourseSuccess(savedCourse)) :
                     dispatch(createCourseSuccess(savedCourse))
             }).catch(error => {
+                dispatch(ajaxCallError());
                 throw(error)
             })
     }

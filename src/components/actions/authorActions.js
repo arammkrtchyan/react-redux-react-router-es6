@@ -1,6 +1,6 @@
 import mockAuthorApi from '../api/mockAuthorApi'
 import {FETCH_AUTHOR_SUCCESS} from "./actionTypes";
-import {beginAjaxCall} from "./ajaxStatusActions";
+import {ajaxCallError, beginAjaxCall} from "./ajaxStatusActions";
 
 export const loadAuthors = () => {
     return (dispatch) => {
@@ -8,7 +8,8 @@ export const loadAuthors = () => {
         mockAuthorApi.getAllAuthors().then(authors =>
             dispatch({type: FETCH_AUTHOR_SUCCESS, authors})
         ).catch(error => {
-            throw(error());
+            dispatch(ajaxCallError());
+            throw(error);
         })
     }
 };

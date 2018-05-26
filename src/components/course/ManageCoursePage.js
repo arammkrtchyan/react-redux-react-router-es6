@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import CourseForm from "./CourseForm";
 import PropTypes from 'prop-types';
 import {saveCourse} from "../actions/course-actions";
+import toastr from 'toastr';
 
 class ManageCoursePage extends React.Component {
 
@@ -18,7 +19,8 @@ class ManageCoursePage extends React.Component {
 
     state = {
         course: Object.assign({}, this.props.course),
-        errors: {}
+        errors: {},
+        saving: false
     };
 
     componentWillReceiveProps(nextProps) {
@@ -36,8 +38,15 @@ class ManageCoursePage extends React.Component {
     };
 
     handleCourseFormSubmit = () => {
-        this.props.onSave(this.state.course);
-        this.context.router.history.push('/courses');
+        this.setState({saving: true});
+        this.props.onSave(this.state.course).then(() => {
+            toastr.success('Course Saved.');
+            this.setState({saving: false});
+            this.context.router.history.push('/courses');
+        }).catch(error => {
+            toastr.error(error);
+            this.setState({saving: false});
+        });
     };
 
     render() {
@@ -53,6 +62,7 @@ class ManageCoursePage extends React.Component {
                     onSave={this.handleCourseFormSubmit}
                     errors={this.state.errors}
                     onChange={this.handleCourseUpdate}
+                    loading={this.state.saving}
                 />
             </div>
         );

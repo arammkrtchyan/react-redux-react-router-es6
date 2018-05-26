@@ -11,6 +11,7 @@ import configureStore from './components/store/configure-store';
 import {Provider} from 'react-redux';
 import {loadCourses} from './components/actions/course-actions'
 import {loadAuthors} from "./components/actions/authorActions";
+import 'toastr/build/toastr.min.css';
 
 const store = configureStore();
 
